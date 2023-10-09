@@ -1,0 +1,13 @@
+body {
+  font-size: 23px;
+  text-align: center;
+}
+
+img {
+  width: 250px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+}
