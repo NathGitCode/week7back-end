@@ -1,20 +1,11 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+
+require("./db/connection");
+
 const app = express();
-
 app.use(express.json());
-
-async function connection() {
-  try {
-    await mongoose.connect(process.env.MONGODB_URI);
-    console.log("successfully connected");
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-connection();
 
 const bookSchema = new mongoose.Schema({
   title: {
