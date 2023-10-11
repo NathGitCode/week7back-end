@@ -3,86 +3,35 @@ const bookRouter = Router();
 
 const Book = require("./model");
 
+const {
+  findAllBooks,
+  addBook,
+  updateBook,
+  deleteBook,
+  deleteAllBooks,
+  findBookByTitle,
+  updateAnyField,
+} = require("./controllers");
+
 // get request
-bookRouter.get("/books", async (request, response) => {
-  const allBooks = await Book.find();
-  const successResponse = {
-    message: "allbooks",
-    allBooks: allBooks,
-  };
-  response.send(successResponse);
-});
+bookRouter.get("/books", findAllBooks);
 
 // post a new book to db
-bookRouter.post("/books", async (request, response) => {
-  const newBook = await Book.create({
-    title: request.body.title,
-    author: request.body.author,
-    genre: request.body.genre,
-  });
-  console.log(newBook);
-
-  const successResponse = {
-    message: "success",
-    newBook: newBook,
-  };
-
-  response.send(successResponse);
-});
+bookRouter.post("/books", addBook);
 
 // updates a single books author
-bookRouter.put("/books", async (request, response) => {
-  const query = { title: request.body.title };
-  const updateAuthor = await Book.findOneAndUpdate(query, {
-    author: request.body.author,
-  });
-
-  const successResponse = {
-    message: "updated",
-    updateAuthor: updateAuthor,
-  };
-  response.send(successResponse);
-});
+bookRouter.put("/books", updateBook);
 
 // deletes a single book
-bookRouter.delete("/books", async (request, response) => {
-  const deleteBook = await Book.deleteOne({
-    title: request.body.title,
-  });
-  const successResponse = {
-    message: "deleted",
-    deleteBook: deleteBook,
-  };
-  response.send(successResponse);
-});
+bookRouter.delete("/books", deleteBook);
 
 // delete all books
-bookRouter.patch("/books", async (request, response) => {
-  const deleteAllBooks = await Book.deleteMany({});
-  const successResponse = {
-    message: "deleted everything",
-    deleteAllBooks: deleteAllBooks,
-  };
-  response.send(successResponse);
-});
+bookRouter.patch("/books", deleteAllBooks);
 
 // find single book by title
-bookRouter.get("/books/:title/", async (request, response) => {
-  const findByTitle = await Book.findOne({
-    title: request.params.title,
-  });
-  response.send(findByTitle);
-});
+bookRouter.get("/books/:title/", findBookByTitle);
 
 // search on a book title route and update any field
-bookRouter.put("/books/:title/", async (request, response) => {
-  const query = { title: request.params.title };
-  const updateByTitle = await Book.findOneAndUpdate(query, {
-    title: request.body.title,
-    author: request.body.author,
-    genre: request.body.genre,
-  });
-  response.send(updateByTitle);
-});
+bookRouter.put("/books/:title/", updateAnyField);
 
 module.exports = bookRouter;
