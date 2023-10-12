@@ -12,6 +12,9 @@ const bookSchema = new mongoose.Schema({
   genre: {
     type: String,
   },
+  price: {
+    type: Number,
+  },
 });
 
 const Book = mongoose.model("book", bookSchema);

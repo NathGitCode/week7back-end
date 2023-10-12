@@ -26,7 +26,7 @@ bookRouter.put("/books", updateBook);
 bookRouter.delete("/books", deleteBook);
 
 // delete all books
-bookRouter.patch("/books", deleteAllBooks);
+bookRouter.delete("/books/delete", deleteAllBooks);
 
 // find single book by title
 bookRouter.get("/books/:title/", findBookByTitle);
